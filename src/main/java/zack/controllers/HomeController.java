@@ -120,7 +120,7 @@ public class HomeController {
             } //<img src=
             else
             {
-                p.setImage("<img src='http://res.cloudinary.com/zbristor/image/upload/" + filename + "' width='500px'/>");
+                p.setImage("http://res.cloudinary.com/zbristor/image/upload/" + filename);
             }
             //System.out.printf("%s\n", cloudc.createUrl(filename,900,900, "fit"));
             p.setCreatedAt(new Date());
@@ -138,23 +138,20 @@ public class HomeController {
     public String getPreview(Model model, Photo photo, Principal principal)
     {
         model.addAttribute("photo",new Photo());
+
         List<Photo> photoList = photoRepo.findAllByUsernameByOrderByDateAsc(principal.getName());
         System.out.printf("%s\n", "photoList" + photoList);
         //photoRepo.findFirstByPhotoList(photoList);
         System.out.printf("%s\n", photoList.get(0).getFilter());
         model.addAttribute("photoList", photoList);
+
         return "preview";
     }
     @PostMapping("/preview")
-    public String postPreview(Model model,Photo photo, Principal principal)
-    {
-        model.addAttribute("photo",new Photo());
-        List<Photo> photoList = photoRepo.findAllByUsernameByOrderByDateAsc(principal.getName());
-        System.out.printf("%s\n", "photoList" + photoList);
-        //photoRepo.findFirstByPhotoList(photoList);
-        System.out.printf("%s\n", photoList.get(0).getFilter());
-        model.addAttribute("photoList", photoList);
+    public String postPreview(Model model,Photo photo, Principal principal) {
+
         return "preview";
+    }
     /*
     @PostMapping("/preview")
     public String postPreview(Model model, Photo photo, Principal principal) {

@@ -11,8 +11,17 @@
 <th:block th:replace="base :: nav"></th:block>
 
 <div class="container">
-    <div class="col-md-3" th:each="photo:${photoList}">
-        <img th:src="${photo.image}" style="position:absolute; width: 500px;"/>
+    <div class="col-md-6" th:each="photo:${photoList}">
+        <img th:src="${photo.image}" style=" width: 500px;"/>
+    </div>
+    <br><br>
+    <div class="col-md-12">
+        <form action="/upload">
+            <div><input type="submit" value="Change Filter"/></div>
+        </form>
+        <form action="/gallery">
+            <div><input type="submit" value="Continue"/></div>
+        </form>
     </div>
 </div><!-- /.container -->
 
