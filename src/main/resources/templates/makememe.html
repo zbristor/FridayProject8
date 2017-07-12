@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns:sec="www.thymeleaf.org/extras/spring-security">
+<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
+
+        <th:block th:replace="base :: head"></th:block>
+    </head>
+<body>
+<th:block th:replace="base :: nav"></th:block>
+
+<div class="container">
+        <br /><br />
+        <h1>Spring Boot file upload example</h1>
+
+    <div th:each = "phot : ${photoList}" >
+
+                    <a th:text = "${phot.type}" th:href="@{'/' + select + '/' + ${phot.type}}"></a>
+    </div><!-- /.container -->
+
+<div class="row">
+
+    <div class="col-md-3" th:each="photo : ${images}">
+        <a th:href="'/img/' + ${photo.id}" >
+        <img th:utext="${photo.image}" />
+        <h2 class="top" th:text="${photo.topmessage}" style="  position: absolute;
+            top: 250px;
+            left: 150px;
+            width: 100px;
+            color: white;"/>
+        <h2 class="bottom" th:text="${photo.botmessage}" style=" position: absolute;
+                 top:200px;
+                left: 150px;
+                width: 100px;
+                color: white;"/>
+        </a>
+    </div>
+
+    <br/>
+
+</div>
+
+
+
+<th:block th:replace="base :: footlinks"></th:block>
+</body>
+</html>
