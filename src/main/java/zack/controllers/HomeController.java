@@ -1,6 +1,7 @@
 package zack.controllers;
 
 import zack.configs.CloudinaryConfig;
+import zack.models.Followers;
 import zack.models.Photo;
 import zack.models.User;
 import zack.repositories.FollowersRepository;
@@ -292,11 +293,15 @@ public class HomeController {
         return "searchresults";
     }
     @RequestMapping("/searchresults/{username}")
-    public String mapFollow(@PathVariable("username") String type, Model model, User user, Principal principal)
+    public String mapFollow(@PathVariable("username") String type, Model model, User user, Principal principal, Followers followers)
     {
 
         User us = userService.findByUsername(type);
         User currentUser = userService.findByUsername(principal.getName());
+        followers.setFollowerName(us.getUsername());
+        followers.setUsername(currentUser.getUsername());
+        followersRepository.save(followers);
+        /*
         String foll = currentUser.getFollowers();
         String updatedFollList = foll+us.getUsername();
         currentUser.setFollowers(updatedFollList);
