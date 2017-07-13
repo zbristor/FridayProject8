@@ -21,7 +21,7 @@
             <tr th:object="${us}"> <!--th:each = "job:${jobs}"-->
                 <td th:utext =  "*{username +' '+ firstName +' '+ lastName}"></td>
                 <br>
-                <td><a th:text="*{username}" th:href="'/'+follow+'/'+ *{username}" class="btn btn-success" ><Follow/></a></td>
+                <td><a th:utext="*{username}" th:href="'/searchresults/'+ *{username}" id="username" class="btn btn-success" ><Follow/></a></td>
             </tr>
             </div>
         </table>

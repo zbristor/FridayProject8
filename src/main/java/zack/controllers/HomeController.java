@@ -291,14 +291,14 @@ public class HomeController {
         */
         return "searchresults";
     }
-    @RequestMapping("/follow/*{username}")
+    @RequestMapping("/searchresults/{username}")
     public String mapFollow(@PathVariable("username") String type, Model model, User user, Principal principal)
     {
 
         User us = userService.findByUsername(type);
         User currentUser = userService.findByUsername(principal.getName());
         String foll = currentUser.getFollowers();
-        String updatedFollList = foll+user.getUsername();
+        String updatedFollList = foll+us.getUsername();
         currentUser.setFollowers(updatedFollList);
         userRepository.save(currentUser);
         /*
