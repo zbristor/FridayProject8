@@ -14,19 +14,17 @@
 <th:block th:replace="base :: nav"></th:block>
 <div class="container">
     <form action="/searchusers" method="post">
-    <table class="table">
         <br><br><br>
         <th height="50">User Info</th>
-        <!--<div th:each = "user: ${userList}">-->
-        <div>
+        <table>
+            <div >
             <tr th:object="${us}"> <!--th:each = "job:${jobs}"-->
-                <td><pre th:utext =  "*{username +'&#9;'+ firstName +' '+ lastName}"/><User Info/></td>
-
-                <td><input type="submit" name="follow" value="follow" id="follow"/></td>
-
+                <td th:utext =  "*{username +' '+ firstName +' '+ lastName}"></td>
+                <br>
+                <td><a th:text="*{username}" th:href="'/'+follow+'/'+ *{username}" class="btn btn-success" ><Follow/></a></td>
             </tr>
-        </div>
-    </table>
+            </div>
+        </table>
     </form>
 
 </div>

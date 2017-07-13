@@ -16,7 +16,7 @@ public class Followers {
 
     private String followerName;
 
-    private long userId;
+    private String username;
 
     public long getId() {
         return id;
@@ -34,11 +34,11 @@ public class Followers {
         this.followerName = followerName;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

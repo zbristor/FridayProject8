@@ -1,8 +1,10 @@
 package zack.controllers;
 
 import zack.configs.CloudinaryConfig;
+import zack.models.Followers;
 import zack.models.Photo;
 import zack.models.User;
+import zack.repositories.FollowersRepository;
 import zack.repositories.PhotoRepository;
 import zack.repositories.UserRepository;
 import zack.services.UserService;
@@ -50,6 +52,9 @@ public class HomeController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private FollowersRepository followersRepository;
 
     @RequestMapping("/")
     public String index(){
@@ -273,7 +278,9 @@ public class HomeController {
     {
         //model.addAttribute("Follow", new Button());
         User us = userService.findByUsername(user.getUsername());
+
         model.addAttribute("us",us);
+        /*
         if(follow.equals("follow"))
         {
             User currentUser = userService.findByUsername(principal.getName());
@@ -282,7 +289,23 @@ public class HomeController {
             currentUser.setFollowers(updatedFollList);
             userRepository.save(currentUser);
         }
+        */
         return "searchresults";
+    }
+    @RequestMapping("/follow/*{username}")
+    public String mapFollow(@PathVariable("username") String username, Model model, User user, Principal principal, Followers followers)
+    {
+        //model.addAttribute(new Followers());
+        User us = userService.findByUsername(username);
+        User currentUser = userService.findByUsername(principal.getName());
+        followers.setFollowerName(us.getUsername());
+        followers.setUsername(currentUser.getUsername());
+        followersRepository.save(followers);
+        /*
+        List<Photo> list = photoRepo.findAllByType(type);
+        model.addAttribute("images", list);
+        */
+        return "searchusers";
     }
 
 }
