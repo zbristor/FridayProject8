@@ -3,6 +3,7 @@ package zack.models;
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "userData")
@@ -28,6 +29,9 @@ public class User {
 
     @Column(name = "username")
     private String username;
+
+    private String followers;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -110,4 +114,12 @@ public class User {
         this.roles = roles;
     }
 
+    public String getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(String followers) {
+        this.followers = followers;
+    }
 }
+

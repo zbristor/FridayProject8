@@ -1,11 +1,15 @@
 package zack.configs;
 
+import zack.models.User;
+import zack.models.Role;
 import zack.repositories.RoleRepository;
 import zack.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 @Component
 public class DataLoader implements CommandLineRunner{
@@ -21,7 +25,7 @@ public class DataLoader implements CommandLineRunner{
     
     @Override
     public void run(String... strings) throws Exception {
-      /*  System.out.println("Loading data . . .");
+        System.out.println("Loading data . . .");
 
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("ADMIN"));
@@ -47,7 +51,7 @@ public class DataLoader implements CommandLineRunner{
         user = new User("sam@every.com","password","Sam","Everyman", true, "everyman");
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Arrays.asList(userRole, adminRole));
-        userRepository.save(user);*/
+        userRepository.save(user);
     }
 }
 

@@ -154,7 +154,7 @@ public class HomeController {
     }
 
     @GetMapping("/mypics")
-    public String getFeed(Model model, Photo photo, Principal principal)
+    public String getPics(Model model, Photo photo, Principal principal)
     {
         model.addAttribute("photo",new Photo());
         Iterable<Photo> photoList = photoRepo.findAllByUsername(principal.getName());
@@ -162,6 +162,10 @@ public class HomeController {
         return "mypics";
     }
 
+    /*
+    @GetMapping("/myfeed")
+    public String getFeed()
+    */
     @RequestMapping("/img/{id}")
     public String something(@PathVariable("id") long id, Model model){
         model.addAttribute("photo", photoRepo.findById(id));
@@ -259,7 +263,7 @@ public class HomeController {
     {
         User us = userService.findByUsername(user.getUsername());
         model.addAttribute("us",us);
-        return "searchusers";
+        return "searchresults";
     }
 
 }
