@@ -140,9 +140,9 @@ public class HomeController {
         model.addAttribute("photo",new Photo());
 
         List<Photo> photoList = photoRepo.findAllByUsernameByOrderByDateAsc(principal.getName());
-        System.out.printf("%s\n", "photoList" + photoList);
+        //System.out.printf("%s\n", "photoList" + photoList);
         //photoRepo.findFirstByPhotoList(photoList);
-        System.out.printf("%s\n", photoList.get(0).getFilter());
+        //System.out.printf("%s\n", photoList.get(0).getFilter());
         model.addAttribute("photoList", photoList);
 
         return "preview";
@@ -152,13 +152,16 @@ public class HomeController {
 
         return "preview";
     }
-    /*
-    @PostMapping("/preview")
-    public String postPreview(Model model, Photo photo, Principal principal) {
 
-        return "preview";
+    @GetMapping("/mypics")
+    public String getFeed(Model model, Photo photo, Principal principal)
+    {
+        model.addAttribute("photo",new Photo());
+        Iterable<Photo> photoList = photoRepo.findAllByUsername(principal.getName());
+        model.addAttribute("photoList",photoList);
+        return "mypics";
     }
-    */
+
     @RequestMapping("/img/{id}")
     public String something(@PathVariable("id") long id, Model model){
         model.addAttribute("photo", photoRepo.findById(id));
