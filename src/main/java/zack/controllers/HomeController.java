@@ -312,5 +312,13 @@ public class HomeController {
         */
         return "searchusers";
     }
+    @GetMapping("/myfeed")
+    public String Pics(Model model, Photo photo, Principal principal)
+    {
+        model.addAttribute("photo",new Photo());
+        Iterable<Photo> photoList = photoRepo.FindAllByFollower(principal.getName(),principal.getName());
+        model.addAttribute("photoList",photoList);
+        return "mypics";
+    }
 
 }
