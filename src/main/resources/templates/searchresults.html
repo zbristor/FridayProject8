@@ -13,6 +13,7 @@
 <body>
 <th:block th:replace="base :: nav"></th:block>
 <div class="container">
+    <form action="/searchusers" method="post">
     <table class="table">
         <br><br><br>
         <th height="50">User Info</th>
@@ -20,10 +21,14 @@
         <div>
             <tr th:object="${us}"> <!--th:each = "job:${jobs}"-->
                 <td><pre th:utext =  "*{username +'&#9;'+ firstName +' '+ lastName}"/><User Info/></td>
-                <td><input type="button" value="Follow"/><Follow Button/></td>
+
+                <td><input type="submit" name="follow" value="follow" id="follow"/></td>
+
             </tr>
         </div>
     </table>
+    </form>
+
 </div>
 
 

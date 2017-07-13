@@ -4,6 +4,7 @@ import zack.configs.CloudinaryConfig;
 import zack.models.Photo;
 import zack.models.User;
 import zack.repositories.PhotoRepository;
+import zack.repositories.UserRepository;
 import zack.services.UserService;
 import zack.validators.UserValidator;
 import com.cloudinary.utils.ObjectUtils;
@@ -20,11 +21,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.internet.InternetAddress;
+import javax.servlet.http.HttpServletRequest;
+import javax.swing.*;
 import javax.validation.Valid;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.*;
+import java.util.List;
 
 @Controller
 public class HomeController {
@@ -40,6 +47,9 @@ public class HomeController {
 
     @Autowired
     private PhotoRepository photoRepo;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping("/")
     public String index(){
@@ -258,11 +268,20 @@ public class HomeController {
         return "searchusers";
     }
 
-    @PostMapping("/searchusers")
-    public String postUser(@ModelAttribute User user, Model model)
+    @PostMapping("/searchusers") //, params = { "follow"}
+    public String postUser(@RequestParam(required=false,value="follow") String follow,@ModelAttribute User user, Model model, Principal principal)
     {
+        //model.addAttribute("Follow", new Button());
         User us = userService.findByUsername(user.getUsername());
         model.addAttribute("us",us);
+        if(follow.equals("follow"))
+        {
+            User currentUser = userService.findByUsername(principal.getName());
+            String foll = currentUser.getFollowers();
+            String updatedFollList = foll+user.getUsername();
+            currentUser.setFollowers(updatedFollList);
+            userRepository.save(currentUser);
+        }
         return "searchresults";
     }
 
