@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>InstaPop</title>
 
     <th:block th:replace="base :: head"></th:block>
 </head>
@@ -23,7 +23,7 @@
         The value of the "name" property of the authentication object should appear here.
     </div>
     <div sec:authorize="isAuthenticated()">
-        This content is only shown to authenticated users.<br />
+        Welcome to InstaPop!<br />
         Logged user: <span sec:authentication="name">Bob</span>
         Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
     </div>
