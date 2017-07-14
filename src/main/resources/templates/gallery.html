@@ -51,21 +51,16 @@
         <h2 th:text="${message}"/><br/><br/>
     </div>
     <div class="row">
-    <div class="col-xs-6 col-md-6" th:each="photo : ${images}">
+    <div class="col-xs-6 col-md-6" th:each="photo : ${images}" >
             <img th:src="${photo.image}" style="position:absolute; width: 500px;" />
            <!-- <a th:href="'/img/' + ${photo.id}" >-->
-            <input type="text" name="comment" placeholder="Comment" />
-            <h2 class="top" th:text="${photo.topmessage}" style="position: absolute;
-                top: 50px;
-                left: 150px;
-                width: 100px;
-                color: white;";/>
-            <h2 class="bottom" th:text="${photo.botmessage}" style=" position: absolute;
-                 top:200px;
-                left: 150px;
-                width: 100px;
-                color: white;"/>
-
+        <br><br>
+        <div class="col-md-12">
+        <div th:object="${comments}">
+            <input type="text" th:field="*{comment}" placeholder="Comment" />
+        </div>
+            <a th:href="'/picture/'+ *{photo.id}" class="btn btn-success" >Submit</a>
+        </div>
     </div>
         <br/><br/> <br/><br/>
 

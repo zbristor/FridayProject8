@@ -1,9 +1,11 @@
 package zack.controllers;
 
 import zack.configs.CloudinaryConfig;
+import zack.models.Comments;
 import zack.models.Followers;
 import zack.models.Photo;
 import zack.models.User;
+import zack.repositories.CommentsRepository;
 import zack.repositories.FollowersRepository;
 import zack.repositories.PhotoRepository;
 import zack.repositories.UserRepository;
@@ -55,6 +57,9 @@ public class HomeController {
 
     @Autowired
     private FollowersRepository followersRepository;
+
+    @Autowired
+    private CommentsRepository commentsRepository;
 
     @RequestMapping("/")
     public String index(){
@@ -300,8 +305,14 @@ public class HomeController {
         return "mypics";
     }
     @RequestMapping("/picture/{photo.id}")
-    public String selectImage(@PathVariable("photo.id") long id, Model model, Photo photo)
+    public String selectImage(@PathVariable("photo.id") long id, Model model, @ModelAttribute Comments comments,Principal principal)
     {
+        model.addAttribute("comment",comments.getComment());
+        model.addAttribute(new Comments());
+        comments.setPhotoID(id);
+        comments.setUsername(principal.getName());
+        comments.setComment(comments.getComment());
+        commentsRepository.save(comments);
         //model.addAttribute(new Photo());
         model.addAttribute("images", photoRepo.findById(id));
         return "gallery";

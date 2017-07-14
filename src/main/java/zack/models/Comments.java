@@ -18,7 +18,7 @@ public class Comments {
 
     private long photoID;
 
-    private long userID;
+    private String username;
 
     public long getCommentsID() {
         return commentsID;
@@ -44,11 +44,11 @@ public class Comments {
         this.photoID = photoID;
     }
 
-    public long getUserID() {
-        return userID;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserID(long userID) {
-        this.userID = userID;
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
