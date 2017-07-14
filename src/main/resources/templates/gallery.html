@@ -54,12 +54,13 @@
     <div class="col-xs-6 col-md-6" th:each="photo : ${images}" >
             <div th:text="${photo.username}"></div>
             <img th:src="${photo.image}" style="position:absolute; width: 500px;" />
-            <form th:action="@{/commentlist}" th:object="${commentsList}" method="post">
-                <tr th:each="comments:commentList">
-                    <td th:utext="${comments.username+comments.comment}"></td>
+            <a th:href="@{/commentList}" id="username" class="btn btn-success" ><See who commented/></a>
+            <div th:object="${commentList}">
+                <tr th:each = "comments:commentList">
+                    <td th:text =  "${comments.username}" >Degree   </td>
+                    <td th:text =  "${education.comment}" >Degree  </td>
                 </tr>
-                <input type="hidden" th:value="${photo.id}" name="photoID"  />
-            </form>
+            </div>
         <!--
          <form th:action="@{/commentlist}" th:object="${comments}" method="get">
                 <tr th:each="comments:commentList">
@@ -83,8 +84,8 @@
     </div>
         <br/><br/> <br/><br/>
 
-    </div>
-</div><!-- /.container -->
+</div>
+<!-- /.container -->
 
 <th:block th:replace="base :: footlinks"></th:block>
 </body>

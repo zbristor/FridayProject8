@@ -184,10 +184,6 @@ public class HomeController {
         return "mypics";
     }
 
-    /*
-    @GetMapping("/myfeed")
-    public String getFeed()
-    */
     @RequestMapping("/img/{id}")
     public String something(@PathVariable("id") long id, Model model){
         model.addAttribute("photo", photoRepo.findById(id));
@@ -195,7 +191,7 @@ public class HomeController {
     }
     @RequestMapping("/gallery")
     public String gallery(Model model){
-        setupGallery(model);
+        //setupGallery(model);
         return "gallery";
     }
 
@@ -220,40 +216,6 @@ public class HomeController {
                 List<Photo> list = photoRepo.findAllByType(type);
                 model.addAttribute("images", list);
                 return "makememe";
-    }
-
-    @GetMapping("/makememe")
-    public String getMeme(Model model){
-        Iterable<Photo> list = photoRepo.findAllByBotmessageEqualsAndTopmessageEquals(null, null);
-        List<Photo> list2 = new ArrayList<Photo>();
-        for(Photo p : list){
-            boolean check = true;
-            for(Photo p2 : list2){
-                if(p2.getType().equals(p.getType())){
-                    System.out.printf("1 %s %s\n", p2.getType(), p.getType());
-                    check = false;
-                    break;
-                }
-                else{
-                    System.out.printf("2 %s %s\n", p2.getType(), p.getType());
-                    check = true;
-                }
-            }
-            if(check){
-                list2.add(p);
-
-            }
-            System.out.printf("3 %s\n", p.getType());
-        }
-        Set<Photo> myList = new HashSet<Photo>();
-        for(Photo p2 : list2){
-            //System.out.printf("%s\n", p2.getType());
-            myList.add(p2);
-        }
-
-
-        model.addAttribute("photoList", myList);
-        return "makememe";
     }
 
     private void setupGallery(Model model){
@@ -287,7 +249,7 @@ public class HomeController {
         model.addAttribute("us",us);
         return "searchresults";
     }
-    @RequestMapping("/searchresults/{username}")
+    @GetMapping("/searchresults/{username}")
     public String mapFollow(@PathVariable("username") String type, Model model, User user, Principal principal, Followers followers)
     {
 
@@ -307,9 +269,11 @@ public class HomeController {
         return "myfeed";
     }
     @RequestMapping("/picture/{id}")
-    public String selectImage(@PathVariable("id") long id, Model model, @ModelAttribute Comments comments,Principal principal)
+    public String selectImage(@PathVariable("id") long id, Model model,Principal principal)
     {
+        //Iterable<Comments> commentList=commentsRepository.findAllByPhotoID(id);
         model.addAttribute("images", photoRepo.findById(id));
+       // model.addAttribute("commentList",commentList);
         return "gallery";
     }
 
@@ -323,12 +287,7 @@ public class HomeController {
     @PostMapping("/createcomment")
     public String createComment(Model model, @ModelAttribute Comments comments,Principal principal)
     {
-        //String matter = request.getParameter("photo.id");
-        //Photo ph = photoRepo.findById(phot);
-        //String matter = request.getParameter("photoid");
-        //comments.setPhotoID(phot);
         comments.setUsername(principal.getName());
-        //comments.setComment(matter);
         commentsRepository.save(comments);
         return "redirect:/myfeed";
     }
@@ -347,5 +306,6 @@ public class HomeController {
         model.addAttribute("commentList",commentList);
         return "commentlist";
     }
+
 
 }
