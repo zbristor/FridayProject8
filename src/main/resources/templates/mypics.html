@@ -47,8 +47,14 @@
     <br/><br/> <br/><br/>
     <div class="row">
         <div class="col-xs-3 col-md-3" th:each="photo : ${photoList}">
-            <a th:href="'/picture/'+${photo.id}" id="id"><img th:src="${photo.image}" style="position:relative; width: 250px;" /></a>
 
+            <a th:href="'/picture/'+${photo.id}" id="id"><img th:src="${photo.image}" style="position:relative; width: 250px;" /></a>
+            <form th:action="@{/createcomment}" th:object="${comments}" method="post">
+                <input type="text" th:field="*{comment}" name="comment" placeholder="Comment" />
+                <input type="hidden" th:value="${photo.id}" name="photoID"  />
+                <!-- <a th:utext="${photo.id}" th:href="'/picture/'+ ${photo.id}" class="btn btn-success" >Submit</a>-->
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
             <br/><br/> <br/><br/>
         </div>
         <br/><br/> <br/><br/>

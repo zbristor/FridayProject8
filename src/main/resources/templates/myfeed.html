@@ -47,6 +47,7 @@
     <br/><br/> <br/><br/>
     <div class="row">
         <div class="col-xs-3 col-md-3" th:each="photo : ${photoList}">
+            <div th:text="${photo.username}"></div>
             <a th:href="'/picture/'+${photo.id}" id="id"><img th:src="${photo.image}" style="position:relative; width: 250px;" /></a>
             <br/><br/> <br/><br/>
         </div>

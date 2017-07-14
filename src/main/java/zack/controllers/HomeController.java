@@ -28,6 +28,7 @@ import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import javax.validation.Valid;
+import javax.xml.stream.events.Comment;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,7 +62,6 @@ public class HomeController {
     @Autowired
     private CommentsRepository commentsRepository;
 
-    private long idSession=0;
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -175,8 +175,9 @@ public class HomeController {
     }
 
     @GetMapping("/mypics")
-    public String getPics(Model model, Photo photo, Principal principal)
+    public String getPics(Model model, Photo photo, Principal principal, @ModelAttribute Comments comments)
     {
+        model.addAttribute("comments",new Comments());
         model.addAttribute("photo",new Photo());
         Iterable<Photo> photoList = photoRepo.findAllByUsername(principal.getName());
         model.addAttribute("photoList",photoList);
@@ -332,5 +333,19 @@ public class HomeController {
         return "redirect:/myfeed";
     }
 
+    @RequestMapping("/commentlist")
+    public String mapList(Model model)
+    {
+        model.addAttribute("comments", new Comments());
+        return "commentlist";
+    }
+    @PostMapping("/commentlist")
+    public String commentList(HttpServletRequest request,@ModelAttribute Comments comments, Model model)
+    {
+        String matter = request.getParameter("photoID");
+        Iterable<Comments> commentList=commentsRepository.findAllByPhotoID(Long.valueOf(matter));
+        model.addAttribute("commentList",commentList);
+        return "commentlist";
+    }
 
 }

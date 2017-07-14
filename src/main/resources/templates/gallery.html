@@ -52,18 +52,34 @@
     </div>
     <div class="row">
     <div class="col-xs-6 col-md-6" th:each="photo : ${images}" >
+            <div th:text="${photo.username}"></div>
             <img th:src="${photo.image}" style="position:absolute; width: 500px;" />
-           <!-- <a th:href="'/img/' + ${photo.id}" >-->
-        <br><br>
-        <div class="col-md-12">
+            <form th:action="@{/commentlist}" th:object="${commentsList}" method="post">
+                <tr th:each="comments:commentList">
+                    <td th:utext="${comments.username+comments.comment}"></td>
+                </tr>
+                <input type="hidden" th:value="${photo.id}" name="photoID"  />
+            </form>
+        <!--
+         <form th:action="@{/commentlist}" th:object="${comments}" method="get">
+                <tr th:each="comments:commentList">
+                    <td th:utext="${comments.username+comments.comment}"></td>
+                </tr>
+                <input type="hidden" th:value="${photo.id}" name="photoID"  />
+            </form>
+
+                    <div class="col-md-12">
         <form th:action="@{/createcomment}" th:object="${comments}" method="post">
             <input type="text" th:field="*{comment}" name="comment" placeholder="Comment" />
             <input type="hidden" th:value="${photo.id}" name="photoID"  />
-           <!-- <a th:utext="${photo.id}" th:href="'/picture/'+ ${photo.id}" class="btn btn-success" >Submit</a>-->
-            <button type="submit" class="btn btn-primary">Comment</button>
+           <!-- <a th:utext="${photo.id}" th:href="'/picture/'+ ${photo.id}" class="btn btn-success" >Submit</a>
+        <button type="submit" class="btn btn-primary">Comment</button>
         </form>
+        -->
+    </div>
 
-        </div>
+        <br><br>
+
     </div>
         <br/><br/> <br/><br/>
 

@@ -16,7 +16,7 @@ public interface PhotoRepository extends CrudRepository<Photo, Long>{
             "type from photos where username=?1 order by created_at DESC LIMIT 1;",nativeQuery = true)
     List<Photo> findAllByUsernameByOrderByDateAsc(String username);
 
-    @Query(value = "select distinct user_data.username,photos.username, followers.follower_name," +
+    @Query(value = "select distinct photos.username ,user_data.username, followers.follower_name," +
             "followers.username,photos.id, created_at, filter, image," +
             "likes, type, botmessage, topmessage, title from user_data, followers," +
             "photos where user_data.username=?1 and followers.username=?2 and photos.username=followers.follower_name;",nativeQuery = true)
