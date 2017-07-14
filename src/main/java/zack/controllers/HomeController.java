@@ -61,6 +61,7 @@ public class HomeController {
     @Autowired
     private CommentsRepository commentsRepository;
 
+    private long idSession=0;
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -302,20 +303,33 @@ public class HomeController {
         model.addAttribute("photo",new Photo());
         Iterable<Photo> photoList = photoRepo.FindAllByFollower(principal.getName(),principal.getName());
         model.addAttribute("photoList",photoList);
-        return "mypics";
+        return "myfeed";
     }
-    @RequestMapping("/picture/{photo.id}")
-    public String selectImage(@PathVariable("photo.id") long id, Model model, @ModelAttribute Comments comments,Principal principal)
+    @RequestMapping("/picture/{id}")
+    public String selectImage(@PathVariable("id") long id, Model model, @ModelAttribute Comments comments,Principal principal)
     {
-        model.addAttribute("comment",comments.getComment());
-        model.addAttribute(new Comments());
-        comments.setPhotoID(id);
-        comments.setUsername(principal.getName());
-        comments.setComment(comments.getComment());
-        commentsRepository.save(comments);
-        //model.addAttribute(new Photo());
         model.addAttribute("images", photoRepo.findById(id));
         return "gallery";
+    }
+
+    @GetMapping("/createcomment")
+    public String getComment(Model model)
+    {
+        model.addAttribute("comments",new Comments());
+        return "createcomment";
+    }
+
+    @PostMapping("/createcomment")
+    public String createComment(Model model, @ModelAttribute Comments comments,Principal principal)
+    {
+        //String matter = request.getParameter("photo.id");
+        //Photo ph = photoRepo.findById(phot);
+        //String matter = request.getParameter("photoid");
+        //comments.setPhotoID(phot);
+        comments.setUsername(principal.getName());
+        //comments.setComment(matter);
+        commentsRepository.save(comments);
+        return "redirect:/myfeed";
     }
 
 

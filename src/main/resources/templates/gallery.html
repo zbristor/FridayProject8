@@ -56,10 +56,13 @@
            <!-- <a th:href="'/img/' + ${photo.id}" >-->
         <br><br>
         <div class="col-md-12">
-        <div th:object="${comments}">
-            <input type="text" th:field="*{comment}" placeholder="Comment" />
-        </div>
-            <a th:href="'/picture/'+ *{photo.id}" class="btn btn-success" >Submit</a>
+        <form th:action="@{/createcomment}" th:object="${comments}" method="post">
+            <input type="text" th:field="*{comment}" name="comment" placeholder="Comment" />
+            <input type="hidden" th:value="${photo.id}" name="photoID"  />
+           <!-- <a th:utext="${photo.id}" th:href="'/picture/'+ ${photo.id}" class="btn btn-success" >Submit</a>-->
+            <button type="submit" class="btn btn-primary">Comment</button>
+        </form>
+
         </div>
     </div>
         <br/><br/> <br/><br/>
