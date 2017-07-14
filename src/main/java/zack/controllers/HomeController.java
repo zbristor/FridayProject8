@@ -299,10 +299,11 @@ public class HomeController {
         model.addAttribute("photoList",photoList);
         return "mypics";
     }
-    @RequestMapping("/select/{photo.image}")
-    public String selectImage(@RequestParam("photo.image") String image, Model model, Photo photo)
+    @RequestMapping("/picture/{user.id}")
+    public String selectImage(@RequestParam("user.id") long id, Model model, Photo photo)
     {
-        model.addAttribute("photo", photoRepo.findByImage(image));
+        model.addAttribute(new Photo());
+        model.addAttribute("photo", photoRepo.findById(id));
         return "gallery";
     }
 
