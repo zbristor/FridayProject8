@@ -276,20 +276,8 @@ public class HomeController {
     @PostMapping("/searchusers") //, params = { "follow"}
     public String postUser(@RequestParam(required=false,value="follow") String follow,@ModelAttribute User user, Model model, Principal principal)
     {
-        //model.addAttribute("Follow", new Button());
         User us = userService.findByUsername(user.getUsername());
-
         model.addAttribute("us",us);
-        /*
-        if(follow.equals("follow"))
-        {
-            User currentUser = userService.findByUsername(principal.getName());
-            String foll = currentUser.getFollowers();
-            String updatedFollList = foll+user.getUsername();
-            currentUser.setFollowers(updatedFollList);
-            userRepository.save(currentUser);
-        }
-        */
         return "searchresults";
     }
     @RequestMapping("/searchresults/{username}")
@@ -301,15 +289,6 @@ public class HomeController {
         followers.setFollowerName(us.getUsername());
         followers.setUsername(currentUser.getUsername());
         followersRepository.save(followers);
-        /*
-        String foll = currentUser.getFollowers();
-        String updatedFollList = foll+us.getUsername();
-        currentUser.setFollowers(updatedFollList);
-        userRepository.save(currentUser);
-        /*
-        List<Photo> list = photoRepo.findAllByType(type);
-        model.addAttribute("images", list);
-        */
         return "searchusers";
     }
     @GetMapping("/myfeed")
@@ -320,5 +299,12 @@ public class HomeController {
         model.addAttribute("photoList",photoList);
         return "mypics";
     }
+    @RequestMapping("/select/{photo.image}")
+    public String selectImage(@RequestParam("photo.image") String image, Model model, Photo photo)
+    {
+        model.addAttribute("photo", photoRepo.findByImage(image));
+        return "gallery";
+    }
+
 
 }

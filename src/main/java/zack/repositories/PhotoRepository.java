@@ -21,11 +21,8 @@ public interface PhotoRepository extends CrudRepository<Photo, Long>{
             "likes, type, botmessage, topmessage, title from user_data, followers," +
             "photos where user_data.username=?1 and followers.username=?2 and photos.username=followers.follower_name;",nativeQuery = true)
     List<Photo> FindAllByFollower(String username, String followerUsername);
-            /*
-            select user_data.username,photo.username, followers.follower_name, followers.username,id, created_at, filter, image, " +
-            "likes, botmessage, topmessage, title from user_data, followers, photos where user_data.username=followers.username and" +
-            " photo.username=followers.follower_name;
-             */
+
+    Photo findByImage(String image);
     //Photo findFirstByPhotoList(List<Photo> photoList);
     //List<Photo> findFirstBy
     //Photo findById(long id);
