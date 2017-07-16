@@ -78,15 +78,6 @@ public class HomeController {
         return "registration";
     }
 
-    @RequestMapping("/memelink/{id}")
-    public String linktoMeme(@PathVariable("id") Long id, Model model){
-        Photo p = photoRepo.findById(id);
-        List<Photo> plist = new ArrayList<Photo>();
-        plist.add(p);
-        model.addAttribute("images",plist);
-        return "gallery";
-    }
-
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public String processRegistrationPage(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) throws UnsupportedEncodingException {
 
@@ -283,21 +274,5 @@ public class HomeController {
         commentsRepository.save(comments);
         return "redirect:/myfeed";
     }
-
-    @RequestMapping("/commentlist")
-    public String mapList(Model model)
-    {
-        model.addAttribute("comments", new Comments());
-        return "commentlist";
-    }
-    @PostMapping("/commentlist")
-    public String commentList(HttpServletRequest request,@ModelAttribute Comments comments, Model model)
-    {
-        String matter = request.getParameter("photoID");
-        Iterable<Comments> commentList=commentsRepository.findAllByPhotoID(Long.valueOf(matter));
-        model.addAttribute("commentList",commentList);
-        return "commentlist";
-    }
-
 
 }

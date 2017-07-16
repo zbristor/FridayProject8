@@ -10,7 +10,7 @@ import java.util.List;
  * Created by student on 7/12/17.
  */
 public interface CommentsRepository extends CrudRepository<Comments, Long> {
-    @Query(value = "select comments.photoid,comments.commentsid, comments.username,comments.comment, comments.username, photos.id " +
-            " from photos, comments where comments.photoid=?1 ;",nativeQuery = true)
+    @Query(value = "select distinct comments.comment, comments.commentsid,comments.photoid, comments.username, comments.username, photos.id " +
+            " from photos, comments where comments.photoid=?1 and comments.photoid=photos.id ;",nativeQuery = true)
     List<Comments> findAllByPhotoID(long photoId);
 }
