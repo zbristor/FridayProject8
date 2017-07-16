@@ -201,16 +201,6 @@ public class HomeController {
         return "textgen";
     }
 
-    @PostMapping("/creatememe")
-    public String creatememe(@ModelAttribute Photo photo, Model model, Principal principal) throws UnsupportedEncodingException {
-        User u = userService.findByUsername(principal.getName());
-        photoRepo.save(photo);
-        setupGallery(model);
-        model.addAttribute("Meme created");
-        sendEmailWithoutTemplating(u.getUsername(), u.getEmail(), photo.getId());
-        return "gallery";
-    }
-
     @RequestMapping("/select/{id}")
     public String selectSomthign(@PathVariable("id") String type, Model model){
                 List<Photo> list = photoRepo.findAllByType(type);
