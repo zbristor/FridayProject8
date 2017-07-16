@@ -264,6 +264,7 @@ public class HomeController {
     public String Pics(Model model, Photo photo, Principal principal)
     {
         model.addAttribute("photo",new Photo());
+        model.addAttribute("comments",new Comments());
         Iterable<Photo> photoList = photoRepo.FindAllByFollower(principal.getName(),principal.getName());
         model.addAttribute("photoList",photoList);
         return "myfeed";
@@ -271,9 +272,10 @@ public class HomeController {
     @RequestMapping("/picture/{id}")
     public String selectImage(@PathVariable("id") long id, Model model,Principal principal)
     {
-        //Iterable<Comments> commentList=commentsRepository.findAllByPhotoID(id);
+        model.addAttribute("comments",new Comments());
+        Iterable<Comments> commentList=commentsRepository.findAllByPhotoID(id);
         model.addAttribute("images", photoRepo.findById(id));
-       // model.addAttribute("commentList",commentList);
+        model.addAttribute("commentList",commentList);
         return "gallery";
     }
 
