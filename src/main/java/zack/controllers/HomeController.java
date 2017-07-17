@@ -275,4 +275,15 @@ public class HomeController {
         return "redirect:/myfeed";
     }
 
+    @RequestMapping("/likes/{photo.id}")
+    public String addLike(@PathVariable("photo.id") long id, Model model)
+    {
+        Photo photo = photoRepo.findById(id);
+        photo.setLikes(photo.getLikes()+1);
+        model.addAttribute("photo",photo);
+        photoRepo.save(photo);
+        return "redirect:/myfeed";
+    }
+
+
 }

@@ -55,6 +55,7 @@
                 <!-- <a th:utext="${photo.id}" th:href="'/picture/'+ ${photo.id}" class="btn btn-success" >Submit</a>-->
                 <button type="submit" class="btn btn-primary">Comment</button>
             </form>
+            <a th:text="${photo.likes}" th:href="'/likes/'+${photo.id}" class="btn btn-success" ></a>
             <br/><br/> <br/><br/>
         </div>
         <br/><br/> <br/><br/>
