@@ -16,10 +16,8 @@
     </div>
     <br><br>
     <div class="col-md-12">
-        <form action="/upload">
-            <div><input type="submit" value="Change Filter"/></div>
-        </form>
-        <form action="/mypics">
+        <a th:value="${photo.id}" th:href="'/delete/'+${photo.id}" class="btn btn-success">Change Filter</a>
+        <form>
             <div><input type="submit" value="Continue"/></div>
         </form>
     </div>

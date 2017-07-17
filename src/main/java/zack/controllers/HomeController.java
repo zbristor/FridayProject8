@@ -139,7 +139,7 @@ public class HomeController {
             p.setUsername(principal.getName());
             photoRepo.save(p);
             System.out.println("image" + p.getImage());
-            setupGallery(model);
+           // setupGallery(model);
         } catch (IOException e){
             e.printStackTrace();
             model.addAttribute("message", "Sorry I can't upload that!");
@@ -175,35 +175,12 @@ public class HomeController {
         return "mypics";
     }
 
-    @RequestMapping("/img/{id}")
-    public String something(@PathVariable("id") long id, Model model){
-        model.addAttribute("photo", photoRepo.findById(id));
-        return "textgen";
-    }
     @RequestMapping("/gallery")
     public String gallery(Model model){
         //setupGallery(model);
         return "gallery";
     }
 
-    @RequestMapping("/textgen")
-    public String textgen(Model model){
-        model.addAttribute("photo", new Photo());
-        return "textgen";
-    }
-
-    @RequestMapping("/select/{id}")
-    public String selectSomthign(@PathVariable("id") String type, Model model){
-                List<Photo> list = photoRepo.findAllByType(type);
-                model.addAttribute("images", list);
-                return "makememe";
-    }
-
-    private void setupGallery(Model model){
-        Iterable<Photo> photoList = photoRepo.findAllByBotmessageIsNotAndTopmessageIsNot("","");
-
-        model.addAttribute("images", photoList);
-    }
     @Autowired
     public EmailService emailService;
     public void sendEmailWithoutTemplating(String username, String email2, Long id) throws UnsupportedEncodingException {
@@ -283,6 +260,13 @@ public class HomeController {
         model.addAttribute("photo",photo);
         photoRepo.save(photo);
         return "redirect:/myfeed";
+    }
+    @RequestMapping("/delete/{photo.id}")
+    public String delete(@PathVariable("photo.id") long id,Model model)
+    {
+       Photo photo = photoRepo.findById(id);
+       photoRepo.delete(photo);
+       return"redirect:/upload";
     }
 
 
