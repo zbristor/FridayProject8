@@ -261,6 +261,8 @@ public class HomeController {
         photoRepo.save(photo);
         return "redirect:/myfeed";
     }
+    // trying to check for when the user chooses to change the filter and delete the existing photo
+    /*
     @RequestMapping("/delete/{photo.id}")
     public String delete(@PathVariable("photo.id") long id,Model model)
     {
@@ -268,6 +270,5 @@ public class HomeController {
        photoRepo.delete(photo);
        return"redirect:/upload";
     }
-
-
+    */
 }
